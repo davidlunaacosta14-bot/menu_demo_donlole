@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#173d31" />
+  <meta name="description" content="Menú digital de demostración para Don Lole, accesible desde NFC." />
+  <title>Don Lole | Menú Digital</title>
+  <style>
+  :root{--green:#173d31;--green2:#285c47;--cream:#f6f2e8;--paper:#fffcf6;--ink:#1f2924;--muted:#6c756c;--line:#e6e5d9;--gold:#cda667;--shadow:0 10px 34px rgba(27,49,35,.09)}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+  button,a{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.wrap{width:min(1050px,calc(100% - 32px));margin:auto}
+  .hero{background:linear-gradient(145deg,rgba(17,53,39,.98),rgba(36,86,61,.95)),radial-gradient(circle at 70% 20%,#81aa85,transparent);color:white;padding:28px 0 32px;position:relative;overflow:hidden}.hero:after{content:"✳";position:absolute;right:-23px;bottom:-120px;font-size:320px;line-height:1;color:#ffffff0c;pointer-events:none}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-family:Georgia,serif;font-size:29px;font-weight:bold;letter-spacing:-.8px}.demo{border:1px solid #ffffff44;border-radius:999px;padding:7px 12px;font-size:11px;font-weight:800;letter-spacing:.1em;color:#f3e2c6}.hero-body{padding:42px 0 25px;max-width:620px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.24em;color:#dfc296;font-weight:800}.hero h1{font-family:Georgia,serif;font-weight:normal;font-size:clamp(38px,7vw,66px);letter-spacing:-2px;line-height:1.03;margin:14px 0}.hero p{font-size:16px;line-height:1.7;color:#e5e8dc;max-width:470px}.meta{display:flex;gap:16px;flex-wrap:wrap;color:#f6e5c7;font-size:13px;margin-top:24px}
+  .sticky{position:sticky;top:0;z-index:5;background:#f6f2e8ed;backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.nav{display:flex;gap:9px;overflow-x:auto;padding:14px 0;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.pill{white-space:nowrap;border:1px solid #dedfd2;background:#fffdf8;padding:11px 17px;border-radius:999px;font-size:13px;font-weight:750;color:var(--green)}.pill.active{background:var(--green);color:#fff;border-color:var(--green)}
+  main{padding:28px 0 95px}.intro{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:5px 0 22px}.intro h2{font-family:Georgia,serif;color:var(--green);font-size:28px;font-weight:normal;margin:0}.intro p{margin:7px 0 0;color:var(--muted);font-size:13px}.search{background:white;border:1px solid var(--line);border-radius:14px;padding:12px 14px;width:min(280px,100%);outline:none}.search:focus{border-color:var(--green2)}
+  .category{margin-bottom:38px;scroll-margin-top:82px}.category-head{display:flex;align-items:center;gap:14px;margin:0 0 17px}.category-head h3{font-family:Georgia,serif;font-size:28px;font-weight:normal;margin:0;color:var(--green)}.category-head small{font-size:12px;color:var(--muted)}.line{height:1px;flex:1;background:#d9dacd}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.item{padding:18px 19px;border:1px solid #e9e6dc;background:var(--paper);border-radius:16px;box-shadow:var(--shadow);display:flex;align-items:start;justify-content:space-between;gap:12px;min-height:122px}.item h4{margin:0 0 8px;font-size:16px}.item p{font-size:13px;color:var(--muted);line-height:1.45;margin:0}.price{font-size:16px;color:var(--green);font-weight:850;white-space:nowrap}.tag{display:inline-block;border-radius:5px;background:#eceddf;padding:4px 6px;margin-bottom:8px;color:#526b50;font-size:10px;font-weight:800;letter-spacing:.02em}.noresults{display:none;padding:24px;text-align:center;color:var(--muted)}
+  .review{background:#e9eee2;border-radius:22px;border:1px solid #d8dfd2;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:18px}.review h3{font-family:Georgia,serif;font-size:27px;margin:0 0 8px;color:var(--green);font-weight:normal}.review p{margin:0;color:#526154;font-size:14px;line-height:1.5;max-width:540px}.btn{background:var(--green);color:#fff;padding:13px 18px;border:0;border-radius:12px;font-size:13px;font-weight:800;white-space:nowrap}.btn[disabled]{background:#718076;cursor:not-allowed}.notice{font-size:12px;color:#778075;margin:20px 0 0;line-height:1.5}.footer{text-align:center;padding:30px 20px;color:#899087;font-size:12px;border-top:1px solid var(--line)}
+  @media(max-width:650px){.wrap{width:calc(100% - 28px)}.hero{padding-top:22px}.hero-body{padding-top:32px}.intro{align-items:stretch;flex-direction:column}.search{width:100%}.grid{grid-template-columns:1fr}.item{min-height:99px}.review{display:block}.review .btn{margin-top:18px;width:100%}.category-head h3{font-size:26px}}
+  </style>
+</head>
+<body>
+<header class="hero"><div class="wrap"><div class="top"><div class="brand" id="brandName">Don Lole<span style="color:#d9bd86">.</span></div><span class="demo">MENÚ DEMO</span></div><div class="hero-body"><div class="eyebrow">Bienvenido a nuestra mesa</div><h1>El sabor de<br>los buenos momentos.</h1><p>Explora nuestro menú y disfruta tus favoritos. Precios y platillos de muestra para probar tu primera etiqueta NFC.</p><div class="meta"><span>✦ Menú desde tu celular</span><span>✦ Sin descargar aplicaciones</span></div></div></div></header>
+<div class="sticky"><nav class="wrap nav" id="nav" aria-label="Categorías del menú"></nav></div>
+<main class="wrap"><div class="intro"><div><h2>Nuestro menú</h2><p>Elige una categoría o busca tu antojo.</p></div><input class="search" id="search" placeholder="⌕  Buscar platillo o bebida..." aria-label="Buscar en el menú"></div><div id="menu"></div><div class="noresults" id="noresults">No encontramos platillos con ese nombre.</div><section class="review" id="resenas"><div><h3>¿Te gustó tu visita?</h3><p>Tu opinión nos ayuda a mejorar. Aquí podremos colocar el enlace real de reseñas de Google del restaurante.</p></div><button class="btn" id="reviewBtn" disabled>Reseñas: próximamente</button></section><p class="notice">* Prototipo de demostración: los productos y precios son ficticios. Para ponerlo en operación reemplazaremos el menú por el catálogo y los precios del negocio, además del enlace de reseñas.</p></main>
+<footer class="footer">Don Lole · Menú digital de demostración · Hecho para abrir con NFC</footer>
+<script>
+// CONFIGURACIÓN DEL NEGOCIO: edita el nombre, categorías, productos, precios y el enlace real de reseñas.
+const CONFIG = {
+  nombre: 'Don Lole',
+  resenasGoogle: '', // Ejemplo: 'https://g.page/r/XXXXXXXX/review' (usar enlace real, nunca inventarlo)
+  categorias: [
+    { id:'especialidades', nombre:'Especialidades', productos:[
+      {nombre:'Tacos de arrachera',descripcion:'Orden de 3 con cebollita asada, salsa de la casa y limón.',precio:135,destacado:true},
+      {nombre:'Hamburguesa de la casa',descripcion:'Carne a la parrilla, queso, vegetales y papas.',precio:159},
+      {nombre:'Quesadillas de champiñón',descripcion:'Tres piezas con queso fundido y guarnición.',precio:105},
+      {nombre:'Alitas BBQ',descripcion:'Porción de alitas bañadas en salsa BBQ.',precio:149}
+    ]},
+    { id:'entradas', nombre:'Entradas', productos:[
+      {nombre:'Papas a la francesa',descripcion:'Doraditas y recién preparadas.',precio:69},
+      {nombre:'Nachos con queso',descripcion:'Totopos, queso fundido, jalapeños y pico de gallo.',precio:95},
+      {nombre:'Guacamole',descripcion:'Aguacate fresco con totopos crujientes.',precio:89}
+    ]},
+    { id:'bebidas', nombre:'Bebidas', productos:[
+      {nombre:'Agua fresca del día',descripcion:'Pregunta por los sabores disponibles.',precio:38},
+      {nombre:'Refresco',descripcion:'Variedad de sabores.',precio:35},
+      {nombre:'Limonada',descripcion:'Natural o mineral.',precio:48},
+      {nombre:'Café americano',descripcion:'Recién preparado.',precio:39}
+    ]},
+    { id:'postres', nombre:'Postres', productos:[
+      {nombre:'Pastel de chocolate',descripcion:'Rebanada de pastel con chocolate.',precio:75},
+      {nombre:'Flan casero',descripcion:'Con caramelo tradicional.',precio:60}
+    ]}
+  ]
+};
+const money = n => new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0}).format(n);
+const nav=document.getElementById('nav'); const menu=document.getElementById('menu'); const search=document.getElementById('search');
+document.getElementById('brandName').textContent=CONFIG.nombre+'.';
+nav.innerHTML=CONFIG.categorias.map((c,i)=>`<a class="pill ${i===0?'active':''}" href="#${c.id}" data-cat="${c.id}">${c.nombre}</a>`).join('');
+function render(query=''){
+  const q=query.toLocaleLowerCase('es').trim(); let total=0;
+  menu.replaceChildren();
+  for(const cat of CONFIG.categorias){
+    const filtered=cat.productos.filter(p=>`${p.nombre} ${p.descripcion} ${cat.nombre}`.toLocaleLowerCase('es').includes(q));
+    if(!filtered.length)continue; total+=filtered.length;
+    const section=document.createElement('section');section.className='category';section.id=cat.id;
+    const head=document.createElement('div');head.className='category-head';
+    const title=document.createElement('h3');title.textContent=cat.nombre;
+    const small=document.createElement('small');small.textContent=`${filtered.length} opciones`;
+    const line=document.createElement('span');line.className='line';head.append(title,small,line);section.append(head);
+    const grid=document.createElement('div');grid.className='grid';
+    for(const p of filtered){
+      const article=document.createElement('article');article.className='item';
+      const left=document.createElement('div');
+      if(p.destacado){const tag=document.createElement('span');tag.className='tag';tag.textContent='FAVORITO DE LA CASA';left.append(tag)}
+      const name=document.createElement('h4');name.textContent=p.nombre;const desc=document.createElement('p');desc.textContent=p.descripcion;left.append(name,desc);
+      const price=document.createElement('span');price.className='price';price.textContent=money(p.precio);article.append(left,price);grid.append(article);
+    }section.append(grid);menu.append(section);
+  }
+  document.getElementById('noresults').style.display=total?'none':'block';
+}
+render();search.addEventListener('input',e=>render(e.target.value));
+nav.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;nav.querySelectorAll('a').forEach(x=>x.classList.remove('active'));a.classList.add('active');search.value='';render();});
+if(CONFIG.resenasGoogle){const b=document.getElementById('reviewBtn');b.disabled=false;b.textContent='Dejar una reseña ↗';b.addEventListener('click',()=>window.open(CONFIG.resenasGoogle,'_blank','noopener,noreferrer'));}
+</script>
+</body>
+</html>
